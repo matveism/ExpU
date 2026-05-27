@@ -17,21 +17,35 @@ html, body {
 
 /* Fake phone screen */
 .phone {
-  width: 480px;          /* exact phone width */
-  height: 800px;         /* exact phone height */
+  width: 480px;
+  height: 800px;
   background-color: #41729E;
   color: #fff;
   font-family: "Courier New", monospace;
-  padding: 10px;
+  padding: 0; /* remove padding so header aligns cleanly */
   box-sizing: border-box;
 
-  /* Pin to left side of desktop */
   position: absolute;
   left: 0;
   top: 0;
 
-  /* Prevent desktop scaling */
   overflow: hidden;
+}
+
+/* Header bar */
+.header {
+  background-color: #2E5877; /* darker shade of blue */
+  height: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  font-weight: bold;
+  font-size: 20px;
+  border-bottom: 3px solid rgba(255,255,255,0.3);
+}
+
+.content {
+  padding: 10px;
 }
 
 h1 {
@@ -50,8 +64,16 @@ p {
 <body>
 
 <div class="phone">
-  <h1>480×800 Mobile</h1>
-  <p>This box matches your real 4.0-inch phone screen.</p>
+
+  <div class="header">
+    LOGIN
+  </div>
+
+  <div class="content">
+    <h1>480×800 Mobile</h1>
+    <p>This box matches your real 4.0-inch phone screen.</p>
+  </div>
+
 </div>
 
 </body>
