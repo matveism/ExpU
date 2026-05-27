@@ -1,481 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>CE Delivery App - Pickup & Dispatch</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      user-select: none;
-    }
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    body {
-      font-family: 'Tahoma', 'Segoe UI', sans-serif;
-      background: #1a1a2e;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      overflow: hidden;
-    }
+<!-- Force mobile width -->
+<meta name="viewport" content="width=480">
 
-    /* CE Terminal Box */
-    .ce-box {
-      width: 260px;
-      height: 360px;
-      border: 3px solid #445;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-      display: flex;
-      flex-direction: column;
-      background: #c8d4e0;
-    }
+<title>Phone 480x800</title>
 
-    /* Buttons */
-    .base-btn {
-      flex: 1;
-      border: 2px outset #d0d0d0;
-      border-radius: 2px;
-      font-size: 9px;
-      font-weight: 700;
-      padding: 4px 0;
-      cursor: pointer;
-      background: linear-gradient(180deg, #e0e0e0 0%, #b0b0b0 100%);
-      color: #000;
-      text-align: center;
-      font-family: monospace;
-    }
-    .base-btn:active {
-      border-style: inset;
-      background: #909090;
-    }
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #111; /* dark background so phone stands out */
+}
 
-    .blue-btn {
-      flex: 1;
-      border: 2px outset #5588dd;
-      border-radius: 2px;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      background: linear-gradient(180deg, #4477dd 0%, #3355bb 100%);
-      color: white;
-      text-shadow: 0px 1px 0px #001133;
-    }
-    .blue-btn:active {
-      border-style: inset;
-      background: #2244aa;
-    }
+/* Fake phone screen */
+.phone {
+  width: 480px;          /* exact phone width */
+  height: 800px;         /* exact phone height */
+  background-color: #41729E;
+  color: #fff;
+  font-family: "Courier New", monospace;
+  padding: 10px;
+  box-sizing: border-box;
 
-    /* Screens */
-    .screen {
-      display: none;
-    }
-    .screen.active {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-    }
+  /* Pin to left side of desktop */
+  position: absolute;
+  left: 0;
+  top: 0;
 
-    /* Scroll Area */
-    .scroll-area {
-      flex: 1;
-      overflow-y: auto;
-    }
-    .scroll-area::-webkit-scrollbar {
-      width: 8px;
-      background: #999;
-    }
-    .scroll-area::-webkit-scrollbar-thumb {
-      background: #333;
-      border-radius: 2px;
-    }
+  /* Prevent desktop scaling */
+  overflow: hidden;
+}
 
-    /* Dispatch Popup */
-    .dispatch-popup {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .dispatch-card {
-      width: 220px;
-      background: #e0e8f0;
-      border: 3px solid #224488;
-      padding: 12px;
-      font-family: monospace;
-      font-weight: bold;
-      text-align: center;
-    }
-    .dispatch-card h4 {
-      background: #2a4a8a;
-      color: white;
-      padding: 4px;
-      margin-bottom: 8px;
-    }
-    .status-dropdown {
-      font-size: 8px;
-      font-weight: bold;
-      width: 75px;
-      background: #ffffcc;
-      border: 1px solid #333;
-      font-family: monospace;
-    }
-    .highlight-row {
-      background-color: #ffec80 !important;
-    }
-  </style>
+h1 {
+  font-size: 22px;
+  margin: 10px 0;
+  text-align: center;
+}
+
+p {
+  font-size: 16px;
+  text-align: center;
+}
+</style>
 </head>
+
 <body>
 
-<!-- LOGON SCREEN -->
-<div id="logonScreen" class="screen active">
-  <div class="ce-box">
-    <div style="display: flex; justify-content: space-between; background: #2a4a8a; color: #fff; font-size: 11px; padding: 4px 6px;">
-      <span id="dateLogon"></span>
-      <span>Logon</span>
-      <span id="timeLogon"></span>
-    </div>
-    <div style="flex:1; padding: 20px 12px;">
-      <div style="font-size: 13px; font-weight: bold;">Enter ID:</div>
-      <input id="logonId" value="22130" style="width:100%; margin-top:10px; padding:5px; font-weight:bold; border:2px inset;">
-    </div>
-    <div style="display: flex; gap: 2px; padding: 6px; background: #c0c0c0;">
-      <button class="base-btn">Back</button>
-      <button class="base-btn">Help</button>
-      <button class="base-btn">✕</button>
-      <button class="base-btn">4δ</button>
-      <button class="base-btn" onclick="login()">Go</button>
-    </div>
-  </div>
+<div class="phone">
+  <h1>480×800 Mobile</h1>
+  <p>This box matches your real 4.0-inch phone screen.</p>
 </div>
 
-<!-- MAIN MENU -->
-<div id="menuScreen" class="screen">
-  <div class="ce-box" style="background: linear-gradient(180deg, #3366cc 0%, #2244aa 100%);">
-    <div style="background: #112266; color: white; text-align: center; padding: 5px;">Activity Menu</div>
-    <div style="flex:1; display: flex; flex-direction: column; gap: 8px; padding: 15px 10px;">
-      <div style="display: flex; gap: 8px;"><button class="blue-btn" onclick="showPickupScreen()">Pickup</button><button class="blue-btn" onclick="showDeliveryScreen()">Delivery</button></div>
-      <div style="display: flex; gap: 8px;"><button class="blue-btn">Outbound</button><button class="blue-btn">Inbound</button></div>
-      <div style="display: flex; gap: 8px;"><button class="blue-btn">Time Card</button><button class="blue-btn">Dispatch</button></div>
-      <div style="display: flex; gap: 8px;"><button class="blue-btn">Utilities</button><button class="blue-btn" onclick="logout()">Logoff</button></div>
-    </div>
-    <div style="display: flex; gap: 2px; padding: 4px; background: #1a2a77;">
-      <button class="blue-btn" onclick="logout()">Back</button>
-      <button class="blue-btn">Help</button>
-      <button class="blue-btn">✕</button>
-      <button class="blue-btn">⊡</button>
-      <button class="blue-btn">Go</button>
-    </div>
-  </div>
-</div>
-
-<!-- PICKUP SCREEN -->
-<div id="pickupScreen" class="screen">
-  <div class="ce-box">
-    <div style="background:#2a4a8a; color:white; text-align:center; padding:3px;">Pickup Manifest</div>
-    <div style="background:#b0c4de; padding:5px; border-bottom:1px solid #666;">
-      <input id="pickupAddr" placeholder="Address first" style="width:100%; margin-bottom:4px; font-size:9px; border:2px inset;">
-      <div style="display:flex; gap:3px;">
-        <input id="pickupPkgId" placeholder="Scan Package ID" style="flex:2; font-size:9px; border:2px inset;">
-        <button id="scanAddBtn" class="base-btn" style="flex:1;" onclick="addScannedPackage()">Scan+</button>
-      </div>
-      <div id="pickupMsg" style="font-size:8px; color:#a00; margin-top:3px;"></div>
-    </div>
-    <div style="display:flex; background:#aabbcc; font-size:9px; font-weight:bold;">
-      <div style="width:25px; padding:2px;">#</div>
-      <div style="flex:3; padding:2px;">Address</div>
-      <div style="flex:2; padding:2px;">Pkg/Shipper</div>
-    </div>
-    <div id="pickupListContainer" class="scroll-area" style="font-size:9px;"></div>
-    <div style="display:flex; gap:2px; padding:4px; background:#c0c0c0;">
-      <button class="base-btn" style="flex:2;" onclick="openDispatch()">Contact Dispatch</button>
-      <button class="base-btn" style="flex:2;" onclick="addStopPrompt()">Add Stop</button>
-      <button class="base-btn" style="flex:2;" onclick="focusPickup()">Pickup Scan</button>
-    </div>
-    <div style="display:flex; gap:2px; padding:4px; background:#c0c0c0;">
-      <button class="base-btn" onclick="showMenu()">Back</button>
-      <button class="base-btn" onclick="openDispatch()">Help</button>
-      <button class="base-btn">▲</button>
-      <button class="base-btn">ACK</button>
-      <button class="base-btn" onclick="syncPickup()">Go</button>
-    </div>
-  </div>
-</div>
-
-<!-- DELIVERY SCREEN with DROPDOWNS -->
-<div id="deliveryScreen" class="screen">
-  <div class="ce-box">
-    <div style="background:#2a4a8a; color:white; text-align:center; padding:3px;">Delivery Manifest</div>
-    <div style="background:#b8c8d8; padding:5px;">
-      <div style="font-size:9px; font-weight:bold;">Scan Track ID:</div>
-      <div style="display:flex; gap:3px;">
-        <input id="deliveryScanInput" placeholder="TRK001" style="flex:2; font-size:10px; border:2px inset;">
-        <button class="base-btn" onclick="searchTrack()">Search</button>
-      </div>
-      <div id="deliveryMsg" style="font-size:8px; margin-top:2px;"></div>
-    </div>
-    <div style="display:flex; background:#aabbcc; font-size:8px; font-weight:bold;">
-      <div style="width:22px;">#</div>
-      <div style="width:45px;">Track ID</div>
-      <div style="flex:2;">Address</div>
-      <div style="width:75px;">Status</div>
-    </div>
-    <div id="deliveryListContainer" class="scroll-area" style="font-size:9px;"></div>
-    <div style="display:flex; gap:2px; padding:4px; background:#c0c0c0;">
-      <button class="base-btn" onclick="showMenu()">Back</button>
-      <button class="base-btn">Help</button>
-      <button class="base-btn">▲</button>
-      <button class="base-btn">ACK</button>
-      <button class="base-btn" onclick="syncDelivery()">Go</button>
-    </div>
-  </div>
-</div>
-
-<script>
-  // ------------- DATA -------------
-  // Pickup Manifest
-  let pickupItems = [
-    { id: 1, stopNum: 12, address: "8100 MATLOCK RD", shipper: "Shipper:16002200" },
-    { id: 2, stopNum: 14, address: "5600 NEW YORK AVE", shipper: "Shipper:16002200" },
-    { id: 3, stopNum: 10, address: "65 GREEN OAKS", shipper: "Shipper:16002200" },
-    { id: 4, stopNum: 11, address: "PIONEER PKW", shipper: "Shipper:16002200" },
-  ];
-  let nextStopId = 20;
-
-  // Delivery Packages with ExpU Statuses
-  const EXPU_STATUSES = [
-    "ExpU Data Received",
-    "ExpU Parcel - w/ office",
-    "ExpU Parcel - w/ courier",
-    "ExpU Depart Scan",
-    "ExpU Arrival Scan",
-    "ExpU EnRoute",
-    "ExpU Local Scan",
-    "ExpU - w/ DeliveryCourier",
-    "ExpU DELIVERED"
-  ];
-
-  let deliveryPackages = [
-    { id: 1, stopNum: 12, trackId: "TRK001", address: "8100 MATLOCK RD", status: "ExpU EnRoute" },
-    { id: 2, stopNum: 14, trackId: "TRK002", address: "5600 NEW YORK AVE", status: "ExpU Data Received" },
-    { id: 3, stopNum: 10, trackId: "TRK003", address: "65 GREEN OAKS", status: "ExpU Parcel - w/ courier" },
-    { id: 4, stopNum: 11, trackId: "TRK004", address: "PIONEER PKW", status: "ExpU Arrival Scan" },
-  ];
-  let highlightTrackId = null;
-
-  // Helper Functions
-  function formatDateTime() {
-    let now = new Date();
-    document.getElementById('dateLogon').innerText = `${now.getMonth()+1}/${now.getDate()}`;
-    document.getElementById('timeLogon').innerText = `${String(now.getHours()).padStart(2,'0')}${String(now.getMinutes()).padStart(2,'0')}`;
-  }
-  setInterval(formatDateTime, 1000);
-  formatDateTime();
-
-  // Navigation
-  function login() { setActiveScreen('menuScreen'); }
-  function logout() { setActiveScreen('logonScreen'); }
-  function showMenu() { setActiveScreen('menuScreen'); }
-  function showPickupScreen() { setActiveScreen('pickupScreen'); renderPickupList(); }
-  function showDeliveryScreen() { setActiveScreen('deliveryScreen'); renderDeliveryList(); }
-  
-  function setActiveScreen(id) {
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-  }
-
-  // ---------- PICKUP LOGIC ----------
-  function renderPickupList() {
-    const container = document.getElementById('pickupListContainer');
-    if (!container) return;
-    container.innerHTML = '';
-    pickupItems.forEach((item, idx) => {
-      let row = document.createElement('div');
-      row.style.display = 'flex';
-      row.style.borderBottom = '1px solid #bbb';
-      row.style.backgroundColor = idx % 2 === 0 ? '#d8e4f0' : '#c8d4e0';
-      row.style.padding = '3px 0';
-      row.innerHTML = `
-        <div style="width:25px; padding-left:3px;">${item.stopNum}</div>
-        <div style="flex:3; overflow:hidden; white-space:nowrap;">${item.address}</div>
-        <div style="flex:2; font-size:8px;">${item.shipper}</div>
-      `;
-      container.appendChild(row);
-    });
-    if(pickupItems.length === 0) container.innerHTML = '<div style="padding:10px;text-align:center;">No stops</div>';
-  }
-
-  function addScannedPackage() {
-    const pkgId = document.getElementById('pickupPkgId').value.trim().toUpperCase();
-    const address = document.getElementById('pickupAddr').value.trim().toUpperCase();
-    const msgDiv = document.getElementById('pickupMsg');
-    
-    if(!address) { msgDiv.innerText = 'ERROR: Enter address first!'; return; }
-    if(!pkgId) { msgDiv.innerText = 'ERROR: Scan or enter Package ID'; return; }
-    
-    // Check duplicate
-    let exists = pickupItems.some(i => i.shipper === `Pkg:${pkgId}`);
-    if(exists) { msgDiv.innerText = `Duplicate: ${pkgId} already in manifest`; return; }
-    
-    let newStop = {
-      id: nextStopId++,
-      stopNum: nextStopId,
-      address: address,
-      shipper: `Pkg:${pkgId}`
-    };
-    pickupItems.push(newStop);
-    renderPickupList();
-    document.getElementById('pickupPkgId').value = '';
-    document.getElementById('pickupAddr').value = '';
-    msgDiv.innerText = `✅ Added ${pkgId} to ${address}`;
-    setTimeout(() => msgDiv.innerText = '', 2000);
-  }
-
-  function addStopPrompt() {
-    let addr = prompt("Enter new stop address:", "123 NEW WAREHOUSE");
-    if(addr && addr.trim()) {
-      let newStop = {
-        id: nextStopId++,
-        stopNum: nextStopId,
-        address: addr.trim().toUpperCase(),
-        shipper: "Shipper:—"
-      };
-      pickupItems.push(newStop);
-      renderPickupList();
-      document.getElementById('pickupMsg').innerText = `📍 Added stop: ${addr}`;
-      setTimeout(() => document.getElementById('pickupMsg').innerText = '', 1500);
-    }
-  }
-  
-  function focusPickup() { document.getElementById('pickupPkgId').focus(); }
-  function syncPickup() { alert("Pickup manifest synced with CE Central."); }
-
-  // ---------- DELIVERY LOGIC (Dropdowns) ----------
-  function renderDeliveryList() {
-    const container = document.getElementById('deliveryListContainer');
-    if(!container) return;
-    container.innerHTML = '';
-    
-    deliveryPackages.forEach((pkg, idx) => {
-      let isHighlight = (highlightTrackId === pkg.trackId);
-      let row = document.createElement('div');
-      row.style.display = 'flex';
-      row.style.alignItems = 'center';
-      row.style.borderBottom = '1px solid #aaa';
-      row.style.backgroundColor = isHighlight ? '#ffec80' : (idx % 2 === 0 ? '#d8e4f0' : '#c8d4e0');
-      row.style.padding = '4px 0';
-      
-      // Create dropdown
-      let select = document.createElement('select');
-      select.className = 'status-dropdown';
-      select.setAttribute('data-trackid', pkg.trackId);
-      EXPU_STATUSES.forEach(status => {
-        let option = document.createElement('option');
-        option.value = status;
-        option.innerText = status.length > 18 ? status.substring(0,15)+'..' : status;
-        if(pkg.status === status) option.selected = true;
-        select.appendChild(option);
-      });
-      select.onchange = (function(tid, newVal) {
-        return function() { updatePackageStatus(tid, this.value); };
-      })(pkg.trackId);
-      
-      row.innerHTML = `
-        <div style="width:22px; text-align:center;">${pkg.stopNum}</div>
-        <div style="width:45px; font-weight:bold; font-size:8px;">${pkg.trackId}</div>
-        <div style="flex:2; overflow:hidden; white-space:nowrap; font-size:8px;">${pkg.address}</div>
-        <div style="width:75px; text-align:center;"></div>
-      `;
-      row.children[3].appendChild(select);
-      container.appendChild(row);
-    });
-  }
-  
-  function updatePackageStatus(trackId, newStatus) {
-    let pkg = deliveryPackages.find(p => p.trackId === trackId);
-    if(pkg) {
-      pkg.status = newStatus;
-      let msgDiv = document.getElementById('deliveryMsg');
-      msgDiv.innerText = `✅ ${trackId} -> ${newStatus}`;
-      msgDiv.style.color = 'green';
-      setTimeout(() => msgDiv.innerText = '', 2000);
-      // Re-render to keep UI fresh (preserve highlight)
-      renderDeliveryList();
-    }
-  }
-  
-  function searchTrack() {
-    let searchVal = document.getElementById('deliveryScanInput').value.trim().toUpperCase();
-    let found = deliveryPackages.find(p => p.trackId === searchVal);
-    let msgDiv = document.getElementById('deliveryMsg');
-    if(found) {
-      highlightTrackId = found.trackId;
-      msgDiv.innerText = `Found: ${found.trackId} - Status: ${found.status}`;
-      msgDiv.style.color = '#0066aa';
-      renderDeliveryList();
-      setTimeout(() => {
-        highlightTrackId = null;
-        renderDeliveryList();
-      }, 3000);
-    } else {
-      highlightTrackId = null;
-      msgDiv.innerText = `❌ Track ID ${searchVal} not found`;
-      msgDiv.style.color = 'red';
-      renderDeliveryList();
-      setTimeout(() => msgDiv.innerText = '', 2500);
-    }
-    document.getElementById('deliveryScanInput').value = '';
-  }
-  
-  function syncDelivery() {
-    let msgDiv = document.getElementById('deliveryMsg');
-    msgDiv.innerText = '📡 Statuses uploaded to CE server.';
-    msgDiv.style.color = '#004488';
-    setTimeout(() => msgDiv.innerText = '', 2000);
-    console.log("Current delivery statuses:", deliveryPackages.map(p => ({id:p.trackId, status:p.status})));
-  }
-
-  // ---------- DISPATCH POPUP ----------
-  function openDispatch() {
-    let popup = document.createElement('div');
-    popup.className = 'dispatch-popup';
-    popup.innerHTML = `
-      <div class="dispatch-card">
-        <h4>📡 CONTACT DISPATCH</h4>
-        <div style="font-size:11px;">🚚 CE Central Hub</div>
-        <div style="background:white; margin:8px 0; padding:5px; font-size:10px; text-align:left;">
-          📞 Call: *99<br>
-          📻 Channel: 4<br>
-          💬 "Pickup/Delivery update ready"
-        </div>
-        <button id="dispatchNotifyBtn" style="background:#2a6; color:white; border:none; padding:6px; width:100%; margin-bottom:5px;">Notify Dispatch</button>
-        <button id="dispatchCloseBtn" style="background:#a44; color:white; border:none; padding:6px; width:100%;">Close</button>
-        <div id="dispatchStatus" style="margin-top:6px; font-size:9px;"></div>
-      </div>
-    `;
-    document.body.appendChild(popup);
-    document.getElementById('dispatchNotifyBtn').onclick = () => {
-      let statusDiv = document.getElementById('dispatchStatus');
-      statusDiv.innerText = '✅ Dispatch notified! ACK received.';
-      setTimeout(() => statusDiv.innerText = '', 1500);
-    };
-    document.getElementById('dispatchCloseBtn').onclick = () => popup.remove();
-    popup.onclick = (e) => { if(e.target === popup) popup.remove(); };
-  }
-
-  // Initial renders
-  renderPickupList();
-  renderDeliveryList();
-</script>
 </body>
 </html>
